@@ -1,4 +1,8 @@
+import logging
 from pydantic_settings import BaseSettings
+
+
+logging.basicConfig(level=logging.INFO)
 
 
 class Settings(BaseSettings):
@@ -12,7 +16,8 @@ class Settings(BaseSettings):
     elastic_host: str
     elastic_port: int
     elastic_scheme: str
-    
+    repeat_time_seconds: int
+
     @property
     def elastic_url(self):
         return f'{self.elastic_scheme}://{self.elastic_host}:{self.elastic_port}'

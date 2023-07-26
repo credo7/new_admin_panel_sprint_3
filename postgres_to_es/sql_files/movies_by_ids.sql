@@ -5,7 +5,6 @@ SELECT
     fw.title,
     fw.description,
     fw.modified,
-    -- fw.type,
     COALESCE(
         json_agg(DISTINCT jsonb_build_object(
             'person_role', pfw.role,
@@ -19,7 +18,6 @@ LEFT JOIN content.person_film_work pfw ON pfw.film_work_id = fw.id
 LEFT JOIN content.person p ON p.id = pfw.person_id
 LEFT JOIN content.genre_film_work gfw ON gfw.film_work_id = fw.id
 LEFT JOIN content.genre g ON g.id = gfw.genre_id
-WHERE fw.modified > {0}
+WHERE fw.id in {0}
 GROUP BY fw.id
-ORDER BY fw.modified
-LIMIT {1};
+ORDER BY fw.modified;
